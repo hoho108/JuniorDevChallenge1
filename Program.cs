@@ -4,20 +4,28 @@
     {
         static void Main()
         {
+            List<Student> studentNamesList = GetStudentList();
+
+            // 根據學生成績輸出對應的等級
+            NewMethod(studentNamesList);
+        }
+
+        private static List<Student> GetStudentList()
+        {
             // 建立兩個 List 來儲存學生姓名與成績
-            List<string> studentNamesList = new List<string>();
-            List<int> studentScoresList = new List<int>();
-            string again = "Y";
+            var studentNamesList = new List<Student>();
+            var continueInput = "Y";
 
             // 使用 while 迴圈允許使用者不斷輸入學生資料
-            while (again == "Y" || again == "y")
-            {
-       
+            while (continueInput == "Y" || continueInput == "y")
+            { // 改成 do while 迴圈
+
 
                 Console.WriteLine("請輸入學生姓名: ");
                 string studentName = Console.ReadLine(); // 讀取學生姓名
-                studentNamesList.Add(studentName);
-                try {
+
+                try
+                {
                     Console.WriteLine("請輸入學生成績: ");
                     try
                     {
@@ -34,18 +42,18 @@
                                 break;
                             }
                         }
-                        studentScoresList.Add(studentScore);
+                        studentNamesList.Add(new Student(studentName, studentScore));
                         Console.WriteLine("是否要輸入另一位學生？(Y/N)");
-                        again = Console.ReadLine();
+                        continueInput = Console.ReadLine();
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("輸入的成績格式錯誤，請重新輸入");
                         Console.WriteLine("請輸入學生成績: ");
                         int studentScore = Convert.ToInt32(Console.ReadLine());
-                        studentScoresList.Add(studentScore);
+                        studentNamesList.Add(new Student(studentName, studentScore));
                         Console.WriteLine("是否要輸入另一位學生？(Y/N)");
-                        again = Console.ReadLine();
+                        continueInput = Console.ReadLine();
 
                     }
 
@@ -55,36 +63,41 @@
                     Console.WriteLine("輸入的成績格式錯誤，請重新輸入");
                     Console.WriteLine("請輸入學生成績: ");
                     int studentScore = Convert.ToInt32(Console.ReadLine());
-                    studentScoresList.Add(studentScore);
+                    studentNamesList.Add(new Student(studentName, studentScore));
                     Console.WriteLine("是否要輸入另一位學生？(Y/N)");
-                    again = Console.ReadLine();
+                    continueInput = Console.ReadLine();
                 }
 
 
             }
 
+            return studentNamesList;
+        }
+
+        private static void NewMethod(List<Student> studentNamesList)
+        {
             // 根據學生成績輸出對應的等級
             for (int i = 0; i < studentNamesList.Count; i++)
             {
-                if (studentScoresList[i] >= 90)
+                if (studentNamesList[i].Score >= 90)
                 {
-                    Console.WriteLine(studentNamesList[i] + " 的成績是 A");
+                    Console.WriteLine(studentNamesList[i].Name + " 的成績是 A");
                 }
-                else if (studentScoresList[i] >= 80)
+                else if (studentNamesList[i].Score >= 80)
                 {
-                    Console.WriteLine(studentNamesList[i] + " 的成績是 B");
+                    Console.WriteLine(studentNamesList[i].Name + " 的成績是 B");
                 }
-                else if (studentScoresList[i] >= 70)
+                else if (studentNamesList[i].Score >= 70)
                 {
-                    Console.WriteLine(studentNamesList[i] + " 的成績是 C");
+                    Console.WriteLine(studentNamesList[i].Name + " 的成績是 C");
                 }
-                else if (studentScoresList[i] >= 60)
+                else if (studentNamesList[i].Score >= 60)
                 {
-                    Console.WriteLine(studentNamesList[i] + " 的成績是 D");
+                    Console.WriteLine(studentNamesList[i].Name + " 的成績是 D");
                 }
                 else
                 {
-                    Console.WriteLine(studentNamesList[i] + " 的成績是 F");
+                    Console.WriteLine(studentNamesList[i].Name + " 的成績是 F");
                 }
             }
         }
