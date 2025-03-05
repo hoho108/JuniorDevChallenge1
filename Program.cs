@@ -5,11 +5,10 @@
         static void Main()
         {
             var studentService = new StudentService();
+            var gradesService = new GradesService();
             var studentNamesList = studentService.GetStudentList();
-            studentService.GetStudentScore(studentNamesList);
+            gradesService.GetStudentScore(studentNamesList);
 
-            //List<Student> studentNamesList = StudentService.GetStudentList();
-            //StudentService.GetStudentScore(studentNamesList);
         }
     }
 
